@@ -323,15 +323,15 @@ const mockCurrentWorkOrders = [
     description: 'Routine brake system inspection and maintenance',
     status: 'OPEN' as const,
     priority: 'ROUTINE' as const,
-    category: 'PREVENTIVE' as const,
+    category: 'SCHEDULED' as const,
     mechanicAssigned: 'Mike Wilson',
-    inspectorAssigned: null,
+    inspectorAssigned: undefined,
     estimatedHours: 4,
     actualHours: 0,
     partsRequired: [],
     createdAt: new Date('2024-01-28'),
     scheduledStartDate: new Date('2024-02-01'),
-    actualStartDate: null,
+    actualStartDate: undefined,
     signOffData: undefined
   }
 ];
