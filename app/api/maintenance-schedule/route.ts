@@ -853,8 +853,8 @@ function generateUtilizationPrediction(dailyData: any[]) {
   return predictions;
 }
 
-function identifyOptimalMaintenanceWindows(dailyData: any[], lowPeriods: any[]) {
-  const windows = [];
+function identifyOptimalMaintenanceWindows(dailyData: any[], lowPeriods: any[]): any[] {
+  const windows: any[] = [];
   
   // Use low periods as maintenance windows
   lowPeriods.forEach(period => {
