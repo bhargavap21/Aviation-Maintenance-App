@@ -1197,7 +1197,7 @@ async function getAIRecommendations(searchParams: URLSearchParams) {
             latest: new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000),
             optimal: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
           },
-          createdAt: today.toISOString()
+          createdAt: today
         },
         {
           id: `baseline-${aircraft.id}-annual`,
@@ -1224,7 +1224,7 @@ async function getAIRecommendations(searchParams: URLSearchParams) {
             latest: new Date(today.getTime() + 45 * 24 * 60 * 60 * 1000),
             optimal: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
           },
-          createdAt: today.toISOString()
+          createdAt: today
         }
       ];
     });
