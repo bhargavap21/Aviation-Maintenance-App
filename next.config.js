@@ -2,4 +2,4 @@
 const nextConfig = {}
 
 // Trigger fresh deployment with latest fixes
-module.exports = nextConfig 
+module.exports = nextConfig // Force fresh deployment
