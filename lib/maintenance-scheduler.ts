@@ -255,7 +255,7 @@ export class MaintenanceScheduler {
       id: `pred-${aircraft.id}-${interval.id}`,
       aircraftId: aircraft.id,
       tailNumber: aircraft.tailNumber,
-      maintenanceType: interval.intervalType,
+      maintenanceType: this.mapIntervalTypeToMaintenanceType(interval.intervalType),
       scheduledDate: optimizedDate,
       estimatedDuration: interval.estimatedDowntime,
       priority: this.calculatePriority(hoursRemaining, interval),
@@ -268,6 +268,17 @@ export class MaintenanceScheduler {
       requiredParts: this.getRequiredParts(interval.intervalType),
       mechanicRequirements: this.getMechanicRequirements(interval.intervalType)
     };
+  }
+
+  // Helper method to map specific interval types to general maintenance types
+  private mapIntervalTypeToMaintenanceType(intervalType: string): MaintenanceScheduleItem['maintenanceType'] {
+    if (intervalType.includes('A_CHECK')) return 'A_CHECK';
+    if (intervalType.includes('C_CHECK')) return 'C_CHECK';
+    if (intervalType === '100_HOUR') return '100_HOUR';
+    if (intervalType === 'ANNUAL') return 'ANNUAL';
+    if (intervalType === 'DAILY') return 'DAILY';
+    if (intervalType === 'PROGRESSIVE') return 'A_CHECK'; // Map progressive to A_CHECK
+    return 'UNSCHEDULED'; // Default fallback
   }
 
   // Optimize the overall schedule considering all constraints
