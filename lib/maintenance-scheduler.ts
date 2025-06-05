@@ -488,7 +488,7 @@ export class MaintenanceScheduler {
       id: `immediate-${aircraft.id}-${interval.id}`,
       aircraftId: aircraft.id,
       tailNumber: aircraft.tailNumber,
-      maintenanceType: interval.intervalType,
+      maintenanceType: this.mapIntervalTypeToMaintenanceType(interval.intervalType),
       scheduledDate: new Date(),
       estimatedDuration: interval.estimatedDowntime,
       priority,
