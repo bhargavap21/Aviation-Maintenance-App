@@ -301,16 +301,26 @@ export default function SchedulePage(): React.ReactElement {
     try {
       setApprovalInProgress(recommendationId);
       
+      // Ensure recommendations are loaded first
+      if (aiRecommendations.length === 0) {
+        console.log('No recommendations loaded, loading them first...');
+        await loadRecommendations();
+      }
+      
       const response = await fetch('/api/maintenance-schedule', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'approve-recommendation',
           recommendationId,
-          approvedBy: 'Maintenance Manager', // In reality, this would come from user session
+          approvedBy: 'Maintenance Manager',
           approvalNotes: 'Approved via agentic workflow system'
         })
       });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       
       const data = await response.json();
       
@@ -335,11 +345,11 @@ export default function SchedulePage(): React.ReactElement {
         
         alert(`✅ Workflow initiated successfully!${emailSummary}\n\n🤖 AUTOMATED ACTIONS:\n${data.data.automatedActions.join('\n')}`);
       } else {
-        alert(`❌ Failed to approve recommendation: ${data.message}`);
+        alert(`❌ Failed to approve recommendation: ${data.message || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Failed to approve recommendation:', error);
-      alert('❌ Failed to approve recommendation');
+      alert(`❌ Failed to approve recommendation: ${error.message}`);
     } finally {
       setApprovalInProgress(null);
     }
