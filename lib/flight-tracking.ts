@@ -33,7 +33,7 @@ const MOCK_FLIGHT_DATA: FlightData[] = [
     verticalRate: 0,
     isOnGround: true,
     lastContact: new Date(),
-    flightStatus: 'AVAILABLE',
+    flightStatus: 'SCHEDULED',
     departureAirport: 'KJFK',
     arrivalAirport: null,
     estimatedDeparture: null,
