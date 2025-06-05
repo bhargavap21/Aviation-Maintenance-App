@@ -596,7 +596,7 @@ async function generateUtilizationAwareRecommendation(
     estimatedDuration: scheduleItem.estimatedDuration || 8,
     description: `${scheduleItem.maintenanceType} maintenance for ${aircraft.tailNumber}`,
     aiConfidence: 0.75,
-    reasoning: 'Generated using standard maintenance intervals',
+    reasoning: ['Generated using standard maintenance intervals'],
     status: 'PENDING',
     workflowId: null,
     complianceRequirements: ['FAR 91.409'],
