@@ -1623,9 +1623,24 @@ async function approveRecommendation(body: any) {
       },
       maintenanceDetails: {
         type: recommendation.maintenanceType,
-        scheduledDate: typeof recommendation.recommendedDate === 'string' 
-          ? recommendation.recommendedDate 
-          : recommendation.recommendedDate.toISOString(),
+        scheduledDate: (() => {
+          // Robust handling of recommendedDate field
+          const recDate = recommendation.recommendedDate;
+          if (!recDate) {
+            // If no date provided, use a default future date
+            return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+          }
+          if (typeof recDate === 'string') {
+            // Already a string, return as-is
+            return recDate;
+          }
+          if (recDate instanceof Date) {
+            // Date object, convert to ISO string
+            return recDate.toISOString();
+          }
+          // Fallback for any other type
+          return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+        })(),
         estimatedDuration: recommendation.estimatedDowntime,
         location: activeWorkflow.resources.hangar,
         estimatedCost: recommendation.estimatedCost
