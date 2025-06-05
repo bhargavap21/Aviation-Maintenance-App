@@ -58,7 +58,7 @@ const MOCK_FLIGHT_DATA: FlightData[] = [
     verticalRate: 0,
     isOnGround: true,
     lastContact: new Date(),
-    flightStatus: 'MAINTENANCE',
+    flightStatus: 'LANDED',
     arrivalAirport: 'KORD',
     actualArrival: new Date('2024-01-25T08:00:00Z'),
     engineRunTime: 0,
