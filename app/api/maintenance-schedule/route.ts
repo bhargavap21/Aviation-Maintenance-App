@@ -1623,7 +1623,9 @@ async function approveRecommendation(body: any) {
       },
       maintenanceDetails: {
         type: recommendation.maintenanceType,
-        scheduledDate: recommendation.recommendedDate.toISOString(),
+        scheduledDate: typeof recommendation.recommendedDate === 'string' 
+          ? recommendation.recommendedDate 
+          : recommendation.recommendedDate.toISOString(),
         estimatedDuration: recommendation.estimatedDowntime,
         location: activeWorkflow.resources.hangar,
         estimatedCost: recommendation.estimatedCost
