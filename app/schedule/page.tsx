@@ -112,7 +112,7 @@ interface SchedulePageProps {}
 export default function SchedulePage(): React.ReactElement {
   const [activeView, setActiveView] = useState<'schedule' | 'utilization' | 'config' | 'recommendations' | 'workflow' | 'audit'>('recommendations');
   const [optimizedSchedule, setOptimizedSchedule] = useState<ScheduleOptimizationResult | null>(null);
-  const [utilizationData, setUtilizationData] = useState<UtilizationPattern[]>([]);
+  const [utilizationData, setUtilizationData] = useState<any[]>([]);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [selectedAircraft, setSelectedAircraft] = useState<string>('');
   const [viewMode, setViewMode] = useState<'schedule' | 'utilization' | 'config'>('schedule');
