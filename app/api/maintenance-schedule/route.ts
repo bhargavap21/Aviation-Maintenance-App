@@ -1177,7 +1177,7 @@ async function getAIRecommendations(searchParams: URLSearchParams) {
           aircraftId: aircraft.id,
           tailNumber: aircraft.tailNumber,
           maintenanceType: '100_HOUR',
-          urgency: 'MEDIUM',
+          urgency: 'MEDIUM' as 'MEDIUM',
           scheduledDate: today,
           recommendedDate: today,
           estimatedCost: 4000,
@@ -1186,16 +1186,16 @@ async function getAIRecommendations(searchParams: URLSearchParams) {
           description: `100-hour inspection for ${aircraft.tailNumber}`,
           aiConfidence: 0.8,
           reasoning: ['Recurring 100-hour maintenance interval due based on flight hours'],
-          status: 'PENDING',
+          status: 'PENDING' as 'PENDING',
           workflowId: null,
           complianceRequirements: ['FAR 91.409'],
           riskFactors: ['Routine maintenance'],
           affectedAssets: [aircraft.tailNumber],
           requiredPersonnel: ['Certified Mechanic', 'Inspector'],
           timeWindow: {
-            earliest: today.toISOString(),
-            latest: new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-            optimal: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString()
+            earliest: new Date(today.toISOString()),
+            latest: new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000),
+            optimal: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
           },
           createdAt: today.toISOString()
         },
@@ -1204,7 +1204,7 @@ async function getAIRecommendations(searchParams: URLSearchParams) {
           aircraftId: aircraft.id,
           tailNumber: aircraft.tailNumber,
           maintenanceType: 'ANNUAL',
-          urgency: 'HIGH',
+          urgency: 'HIGH' as 'HIGH',
           scheduledDate: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000),
           recommendedDate: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000),
           estimatedCost: 18000,
@@ -1213,16 +1213,16 @@ async function getAIRecommendations(searchParams: URLSearchParams) {
           description: `Annual inspection for ${aircraft.tailNumber}`,
           aiConfidence: 0.95,
           reasoning: ['Annual inspection required by FAR regulations'],
-          status: 'PENDING',
+          status: 'PENDING' as 'PENDING',
           workflowId: null,
           complianceRequirements: ['FAR 91.409', 'FAR 43.9'],
           riskFactors: ['Critical maintenance'],
           affectedAssets: [aircraft.tailNumber],
           requiredPersonnel: ['Certified Mechanic', 'Inspector', 'Supervisor'],
           timeWindow: {
-            earliest: new Date(today.getTime() + 21 * 24 * 60 * 60 * 1000).toISOString(),
-            latest: new Date(today.getTime() + 45 * 24 * 60 * 60 * 1000).toISOString(),
-            optimal: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString()
+            earliest: new Date(today.getTime() + 21 * 24 * 60 * 60 * 1000),
+            latest: new Date(today.getTime() + 45 * 24 * 60 * 60 * 1000),
+            optimal: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
           },
           createdAt: today.toISOString()
         }
@@ -1623,7 +1623,7 @@ async function approveRecommendation(body: any) {
       },
       maintenanceDetails: {
         type: recommendation.maintenanceType,
-        scheduledDate: recommendation.recommendedDate,
+        scheduledDate: recommendation.recommendedDate.toISOString(),
         estimatedDuration: recommendation.estimatedDowntime,
         location: activeWorkflow.resources.hangar,
         estimatedCost: recommendation.estimatedCost
