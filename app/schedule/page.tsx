@@ -209,14 +209,26 @@ export default function SchedulePage(): React.ReactElement {
       if (data.success) {
         setAIRecommendations(data.data.recommendations.map((rec: any) => ({
           ...rec,
-          recommendedDate: new Date(rec.recommendedDate).toISOString(),
+          recommendedDate: rec.recommendedDate ? 
+            (typeof rec.recommendedDate === 'string' ? rec.recommendedDate : new Date(rec.recommendedDate).toISOString()) :
+            new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
           timeWindow: {
-            earliest: new Date(rec.timeWindow.earliest).toISOString(),
-            latest: new Date(rec.timeWindow.latest).toISOString(),
-            optimal: new Date(rec.timeWindow.optimal).toISOString()
+            earliest: rec.timeWindow?.earliest ? 
+              (typeof rec.timeWindow.earliest === 'string' ? rec.timeWindow.earliest : new Date(rec.timeWindow.earliest).toISOString()) :
+              new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+            latest: rec.timeWindow?.latest ? 
+              (typeof rec.timeWindow.latest === 'string' ? rec.timeWindow.latest : new Date(rec.timeWindow.latest).toISOString()) :
+              new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+            optimal: rec.timeWindow?.optimal ? 
+              (typeof rec.timeWindow.optimal === 'string' ? rec.timeWindow.optimal : new Date(rec.timeWindow.optimal).toISOString()) :
+              new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
           },
-          createdAt: new Date(rec.createdAt).toISOString(),
-          approvedAt: rec.approvedAt ? new Date(rec.approvedAt).toISOString() : undefined
+          createdAt: rec.createdAt ? 
+            (typeof rec.createdAt === 'string' ? rec.createdAt : new Date(rec.createdAt).toISOString()) :
+            new Date().toISOString(),
+          approvedAt: rec.approvedAt ? 
+            (typeof rec.approvedAt === 'string' ? rec.approvedAt : new Date(rec.approvedAt).toISOString()) : 
+            undefined
         })));
       }
     } catch (error) {
