@@ -591,16 +591,20 @@ async function generateUtilizationAwareRecommendation(
     tailNumber: aircraft.tailNumber,
     maintenanceType: scheduleItem.maintenanceType,
     urgency: 'MEDIUM',
-    scheduledDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    recommendedDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     estimatedCost: scheduleItem.estimatedCost || 15000,
-    estimatedDuration: scheduleItem.estimatedDuration || 8,
-    description: `${scheduleItem.maintenanceType} maintenance for ${aircraft.tailNumber}`,
+    estimatedDowntime: scheduleItem.estimatedDuration || 8,
     aiConfidence: 0.75,
     reasoning: ['Generated using standard maintenance intervals'],
     status: 'PENDING',
-    workflowId: null,
-    complianceRequirements: ['FAR 91.409'],
-    riskFactors: ['Standard maintenance']
+    affectedAssets: [aircraft.tailNumber],
+    requiredPersonnel: ['A&P Mechanic'],
+    timeWindow: {
+      earliest: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+      latest: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+      optimal: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    },
+    createdAt: new Date()
   };
 }
 
